@@ -4,6 +4,7 @@ import {
   IArticle,
   IArticleDetails,
   IPaginationInput,
+  IPublishArticleInput,
   IPublishedByOrganizationInput,
   IPublishedByPathInput,
   IPublishedInput,
@@ -216,5 +217,73 @@ export class ArticleHandler extends BaseHandler {
       );
     }
     return data;
+  }
+  public async publishArticle(
+    article: IPublishArticleInput
+  ): Promise<IArticle> {
+    const url = new URL(`${this._apiUrl}/articles`);
+    if (!this._apiKey) {
+      throw new Error("method getArticlesForUser requires an API key");
+    }
+    const res = await fetch(url, {
+      method: "post",
+      body: JSON.stringify({ article }),
+      headers: {
+        accept: "application/vnd.forem.api-v1+json",
+        "Content-Type": "application/json",
+        "api-key": this._apiKey,
+      },
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(
+        formatError("article", data.status, data.error ?? "unknown")
+      );
+    }
+    return data;
+  }
+  public async updateArticleById(id: number, article: IPublishArticleInput) {
+    const url = new URL(`${this._apiUrl}/articles/${id}`);
+    if (!this._apiKey) {
+      throw new Error("method getArticlesForUser requires an API key");
+    }
+    const res = await fetch(url, {
+      method: "put",
+      body: JSON.stringify({ article }),
+      headers: {
+        accept: "application/vnd.forem.api-v1+json",
+        "Content-Type": "application/json",
+        "api-key": this._apiKey,
+      },
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(
+        formatError("article", data.status, data.error ?? "unknown")
+      );
+    }
+    return data;
+  }
+  public async unpublishArticleById(id: number): Promise<boolean> {
+    const url = new URL(`${this._apiUrl}/articles/${id}/unpublish`);
+    if (!this._apiKey) {
+      throw new Error("method getArticlesForUser requires an API key");
+    }
+    const res = await fetch(url, {
+      method: "put",
+      body: JSON.stringify({ article }),
+      headers: {
+        accept: "application/vnd.forem.api-v1+json",
+        "Content-Type": "application/json",
+        "api-key": this._apiKey,
+      },
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(
+        formatError("article", data.status, data.error ?? "unknown")
+      );
+    }
+    return true;
   }
 }

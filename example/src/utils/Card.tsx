@@ -5,7 +5,10 @@ export const Card: FC = (props) => {
     <article>
       {props.children}
       <footer>
-        <a href={props.link}>{props.linkText}</a>
+        {props.link && props.linkText ? (
+          <a href={props.link}>{props.linkText}</a>
+        ) : null}
+        {props?.footerButtons}
       </footer>
     </article>
   );

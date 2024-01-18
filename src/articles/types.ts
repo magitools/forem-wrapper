@@ -74,3 +74,15 @@ export interface IVideoArticle {
     name: string;
   };
 }
+
+export interface IPublishArticleInput {
+  title: string;
+  body_markdown: string;
+  published: boolean;
+  series?: string;
+  main_image?: string;
+  canonical_url?: string;
+  description?: string;
+  tags?: string;
+  organization_id?: number;
+}
