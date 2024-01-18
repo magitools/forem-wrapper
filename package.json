@@ -1,7 +1,7 @@
 {
   "name": "@magitools/forem-wrapper",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "A Forem V1 Api Wrapper",
   "main": "./dist/bundle.mjs",
   "module": "./dist/bundle.mjs",
   "types": "./dist/bundle.d.mts",
@@ -9,6 +9,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup --config"
   },
+  "files": [
+    "dist/bundle.mjs",
+    "dist/bundle.d.mts"
+  ],
   "keywords": [],
   "author": "Matteo Gassend",
   "license": "MIT",
