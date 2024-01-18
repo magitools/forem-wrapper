@@ -38,21 +38,25 @@ const ArticleHeader: FC = () => {
 };
 
 app.get("/", async (c) => {
-  const articles = await new ForemClient().article.getPublishedArticles({});
-  return c.html(
-    <Layout>
-      <ArticleHeader />
-      <p>
-        this example calls{" "}
-        <pre>new ForemClient().article.getPublishedArticles({})</pre>{" "}
-      </p>
-      {articles.map((e) => (
-        <Card link={`/articles/${e.id}`} linkText="details">
-          {e.title}
-        </Card>
-      ))}
-    </Layout>
-  );
+  try {
+    const articles = await new ForemClient().article.getPublishedArticles({});
+    return c.html(
+      <Layout>
+        <ArticleHeader />
+        <p>
+          this example calls{" "}
+          <pre>new ForemClient().article.getPublishedArticles({})</pre>{" "}
+        </p>
+        {articles.map((e) => (
+          <Card link={`/articles/${e.id}`} linkText="details">
+            {e.title}
+          </Card>
+        ))}
+      </Layout>
+    );
+  } catch (error) {
+    return c.text("something went wrong");
+  }
 });
 
 app.get("/latest", async (c) => {
